@@ -1,4 +1,6 @@
+import { useContext } from "react"
 import { useState } from "react"
+import { UserContext } from "../../contexts/user.context"
 import { createUserDocumentFromAuth, signInWithGooglePopup, signInAuthUserWithEmailAndPassword } from "../../utils/firebase/firebase.utils"
 import Button from "../button/button.component"
 import FormInput from "../form-input/form-input.component"
@@ -13,6 +15,8 @@ const defaultFormFields = {
 const SignInForm = ({ toggleAuthentication }) => {
     const [formFields, setFormFields] = useState(defaultFormFields)
     const { email, password } = formFields
+
+    const { setCurrentUser } = useContext(UserContext)
 
     const resetFormFields = () => {
         setFormFields(defaultFormFields)
@@ -33,8 +37,9 @@ const SignInForm = ({ toggleAuthentication }) => {
         e.preventDefault()
 
         try {
-            const response = await signInAuthUserWithEmailAndPassword(email, password)
-            console.log(response)
+            const {user} = await signInAuthUserWithEmailAndPassword(email, password)
+            
+            setCurrentUser(user)
             resetFormFields()
         } catch (error) {
             if(error.code === 'auth/wrong-password' || error.code === 'auth/user-not-found') {
