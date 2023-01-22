@@ -12,7 +12,7 @@ const defaultFormFields = {
         confirmPassword: '',
     }
 
-const SignUpForm = () => {
+const SignUpForm = ({ toggleAuthentication }) => {
     const [formFields, setFormFields] = useState(defaultFormFields)
     const { displayName, email, password, confirmPassword } = formFields
 
@@ -85,7 +85,10 @@ const SignUpForm = () => {
                 name='confirmPassword' 
                 value={confirmPassword}
             />
-            <Button children={'Sign Up'} type='submit' />
+            <div className="buttons-container">
+                <Button children='Sign Up' type='submit'>Sign Up</Button>
+                <Button children='I have an account.' type='button' buttonType='link' onClick={toggleAuthentication}/>
+            </div>
         </form> 
     </div>
   )

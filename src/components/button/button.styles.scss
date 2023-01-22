@@ -43,4 +43,19 @@
       border: none;
     }
   }
+
+  &.link-button {
+    color: #4285f4;
+    border: none;
+    font-size: 10px;
+    background-color: white;
+
+
+    &:hover {
+      color: #357ae8;
+      border: none;
+      font-size: 10px;
+        background-color: white;
+    }
+  }
 }
