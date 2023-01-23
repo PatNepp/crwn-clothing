@@ -5,7 +5,7 @@ import SignUpForm from "../../components/sign-up-form/sign-up-form.component"
 import './authentication.styles.scss'
 
 const Authentication = () => {
-  const [ hasAccount, setHasAccount ] = useState(false)
+  const [ hasAccount, setHasAccount ] = useState(true)
 
   const toggleAuthentication = () => {
     hasAccount ? setHasAccount(false) : setHasAccount(true)
