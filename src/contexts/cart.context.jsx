@@ -15,11 +15,16 @@ const addCartItem = (cartItems, productToAdd) => {
     return [...cartItems, { ...productToAdd, quantity: 1}]
 }
 
+const removeCartItem = (cartItems, productToDelete) => {
+    return cartItems.filter((cartItem) => cartItem.id !== productToDelete.id) 
+}
+
 export const CartContext = createContext({
     isCartOpen: false,
     setIsCartOpen: () => {},
     cartItem: [],
     addItemToCart: () => {},
+    removeItemFromCart: () => {},
     cartCount: 0,
     cartTotal: 0
 })
@@ -43,13 +48,16 @@ export const CartProvider = ({children}) => {
         setCartTotal(newCartTotal)
     }, [cartItems])
 
-  
 
     const addItemToCart = (productToAdd) => {
         setCartItems(addCartItem(cartItems, productToAdd)) 
     }
 
-    const value = { isCartOpen, setIsCartOpen, cartItems, addItemToCart, cartCount, cartTotal }
+    const removeItemFromCart = (productToDelete) => {
+        setCartItems(removeCartItem(cartItems, productToDelete))
+    }
+
+    const value = { isCartOpen, setIsCartOpen, cartItems, addItemToCart, removeItemFromCart, cartCount, cartTotal }
 
     return <CartContext.Provider value={value}>{children}</CartContext.Provider>
 }
